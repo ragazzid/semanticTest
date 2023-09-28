@@ -22,8 +22,8 @@ jobs:
         id: pr_commit_messages
         run: |
           echo "Uai"
-          git diff CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG
-          COMMIT_MESSAGES=$( git diff CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
+          git diff $(git rev-parse HEAD)..$(git rev-parse main) -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG
+          COMMIT_MESSAGES=$(git diff $(git rev-parse HEAD)..$(git rev-parse main) -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG)
           echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
       
