@@ -34,12 +34,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG_NAME=$(cat VERSION)
-          RELEASE_NOTES="${{ steps.pr_commit_messages.outputs.commit_messages }}"
+          COMMIT_MESSAGES=$(git log --merges --pretty=format:"- %s" $(git merge-base HEAD $(git rev-parse --abbrev-ref HEAD))..HEAD)
           echo "Creating a release with tag $TAG_NAME and release notes:"
-          echo "$RELEASE_NOTES"
+          echo "$COMMIT_MESSAGES"
           echo "::set-output name=tag::$TAG_NAME"
-          echo "::set-output name=release_notes::$RELEASE_NOTES"
+          echo "::set-output name=release_notes::$COMMIT_MESSAGES"
         continue-on-error: true
+      
 
       - name: Create Git Tag
         id: create_tag
