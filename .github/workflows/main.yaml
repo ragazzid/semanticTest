@@ -22,11 +22,9 @@ jobs:
         id: pr_commit_messages
         run: |
           echo "UAI"
-          ls
-          pwd
           git ls-remote --heads origin
-          git diff origin/main CHANGELOG
-          COMMIT_MESSAGES=$( git diff origin/main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
+          git diff refs/heads/main CHANGELOG
+          COMMIT_MESSAGES=$( git diff refs/heads/main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
           echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
       
