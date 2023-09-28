@@ -23,8 +23,8 @@ jobs:
         run: |
           echo "UAI"
           git ls-remote --heads origin
-          git diff refs/heads/main CHANGELOG
-          COMMIT_MESSAGES=$( git diff refs/heads/main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
+          git diff refs/heads/main --- CHANGELOG
+          COMMIT_MESSAGES=$( git diff refs/heads/main --- CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
           echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
       
