@@ -22,16 +22,12 @@ jobs:
       - name: Get PR commit messages
         id: pr_commit_messages
         run: |
-          # Determinar o commit base
           BASE_BRANCH=$(git merge-base HEAD $(git rev-parse --abbrev-ref HEAD))
-          
-          # Pegar mensagens de commit relacionadas ao pull request mesclado no branch main
-          COMMIT_MESSAGES=$(git log --merges --pretty=format:"- %s" $BASE_BRANCH..HEAD)
+          COMMIT_MESSAGES=$( git diff main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
           
           echo "Commit messages:"
           echo "$COMMIT_MESSAGES"
           
-          # Definir as variáveis de ambiente
           echo "TAG_NAME=$(cat VERSION)" >> $GITHUB_ENV
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
         continue-on-error: true
