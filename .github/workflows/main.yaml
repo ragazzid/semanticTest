@@ -47,7 +47,6 @@ jobs:
         run: |
           git tag ${{ steps.create_release.outputs.tag }}
           git push origin ${{ steps.create_release.outputs.tag }}
-        continue-on-error: true
 
       - name: Create GitHub Release
         id: create_github_release
