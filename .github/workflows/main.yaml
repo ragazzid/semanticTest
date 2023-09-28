@@ -13,19 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get PR commit messages
-        id: pr_commit_messages
+      - uses: technote-space/get-diff-action@v6
+        with:
+          FILES: |
+            CHANGELOG
+      
+      - name: check Diff
+        id: checkDiff
         run: |
-          echo "Uai"
-          git diff fd3b85fd9b78745216e89a62b7b0622fa959caf2 -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG
-          COMMIT_MESSAGES=$(git diff fd3b85fd9b78745216e89a62b7b0622fa959caf2 -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG)
-          echo $COMMIT_MESSAGES
-          echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
+          echo $GIT_DIFF
       
       - name: Read VERSION file
         id: version
         run: |
           cat VERSION
+          exit 2
 
       - name: Create Git Tag
         id: create_tag
