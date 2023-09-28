@@ -1,0 +1,178 @@
+# Changelog
+
+## unreleased
+
+
+## v0.20.0 (2023-09-27)
+
+- **EKS**: `legacy/web-asg`:
+  - Vai teia
+
+## v0.19.0 (2023-09-27)
+
+- **Blueprint**: `legacy/web-asg`:
+  - The module now uses Launch Template instead of Launch Configuration.
+  - The variable `volume_size` has been removed. use `block_device_mappings` instead.
+  - Variable `user_data` requires a base64 encoded string.
+  - It supports configuring the AWS Metadata via variable `metadata options`.
+
+## v0.18.0 (2023-09-27)
+
+:rotating_light: **Breaking Changes**:
+
+- **Blueprint**: `legacy/web-asg`:
+  - The module now uses Launch Template instead of Launch Configuration.
+  - The variable `volume_size` has been removed. use `block_device_mappings` instead.
+  - Variable `user_data` requires a base64 encoded string.
+  - It supports configuring the AWS Metadata via variable `metadata options`.
+
+## v0.17.0 (2023-08-22)
+
+:rocket: **Added**:
+
+- **Module**: AWS `eks`: added --seccomp-default to Kubelet extra args to enable the use of RuntimeDefault as the default seccomp profile for all workloads.
+
+## v0.16.2 (2023-08-10)
+
+:rocket: **Added**:
+
+- **Module**: AWS `eks`: added new permissions for kubecost cost-analyzer role.
+
+## v0.16.1 (2023-08-10)
+
+:rocket: **Added**:
+
+- **Module**: AWS `iam/eks`: added list of roles or * to be assume by eks_workers_role.
+
+## v0.16.0 (2023-07-13)
+
+:rocket: **Added**:
+
+- **Module**: AWS `iam/group-membership`: assigns an IAM Group to IAM Users.
+
+## v0.15.0 (2023-06-16)
+
+:ticket: **Chore**:
+
+- **Module**: AWS `eks`: Add explicit reference to EKS Worker IAM Role trust policy in order to assume iself. Check [this AWS Blog post](https://aws.amazon.com/blogs/security/announcing-an-update-to-iam-role-trust-policy-behavior/).
+
+## v0.14.0 (2023-05-26)
+
+:rocket: **Added**:
+
+- **Module**: AWS `elasticache/cluster`: creates an ElastiCache Cluster (Memcached or Redis)
+- **Module**: AWS `elasticache/replication-group`: creates an ElastiCache Replication Group (Redis)
+- **Module**: AWS `elasticache/subnet-group`: creates an ElastiCache Subnet Group
+- **Module**: AWS `elasticache/parameter-group`: creates an ElastiCache Parameter Group
+
+## v0.13.0 (2023-05-25)
+
+:rocket: **Added**:
+
+- **Module**: AWS `route53/record`: creates a Route53 Record (Alias or not)
+
+## v0.12.0 (2023-05-24)
+
+:rocket: **Added**:
+
+- **Module**: AWS `cloudtrail`: provides a CloudTrail trail
+
+## v0.11.0 (2023-05-19)
+
+:rocket: **Added**:
+
+- **Module**: TLS `private-key`: generates a private key and optionally saves the private key to AWS SSM
+
+## v0.10.0 (2023-05-17)
+
+:rocket: **Added**:
+
+- **Module**: AWS `glue/database-with-table`: creates a Glue Database and a Glue Table
+
+## v0.9.0 (2023-05-16)
+
+:rocket: **Added**:
+
+- **Module**: AWS `route53/zone`: creates a Route53 Zone, optionally with a VPC association authorization
+
+## v0.8.0 (2023-05-11)
+
+:rocket: **Added**:
+
+- **Module**: AWS `iam/iam-policy-and-role-for-service-accounts-eks`: creates an IAM policy and IAM role for service accounts (IRSA) for Amazon EKS
+
+## v0.7.0 (2023-05-08)
+
+:rocket: **Added**:
+
+- **Module**: AWS `ec2/with-r53-record`: wraps the EC2 Instance module and adds a Route53 record for the instance
+
+## v0.6.0 (2023-05-03)
+
+:rocket: **Added**:
+
+- **Module**: AWS `eks`: configurable additional CIDR blocks for connecting to EKS control plane
+
+:rotating_light: **Breaking Changes**:
+
+- **Blueprint**: `legacy/web-web`: The module now receives the 'user data' script as a variable. The script is no longer hardcoded in the module.
+
+## v0.5.0 (2023-04-24)
+
+:rocket: **Added**:
+
+- **Module**: AWS SSM `maintenance-window`: configurable Window Description
+- **Module**: AWS SSM `maintenance-window`: configurable Task Timeout
+- **Module**: AWS IAM `policy-attachment`
+- **Blueprint**: `legacy/transfer-server` (migrating from Namely `tf2` repo)
+
+:wrench: **Fixed**:
+
+- **Module**: AWS SSM `maintenance-window`: changed variables `task_max_concurrency` and `task_max_errors` to type `string` (from `number`) to allow percentage values
+
+## v0.4.0 (2023-04-21)
+
+:rocket: **Added**:
+
+- **Module**: AWS `efs/efs-for-eks` (migrating from Namely `tf2` repo)
+
+## v0.3.0 (2023-04-20)
+
+:rocket: **Added**:
+
+- **Blueprint**: `legacy/web-elb` (migrating from Namely `tf2` repo)
+- **Blueprint**: `legacy/web-web` (migrating from Namely `tf2` repo)
+- **Module**: AWS Route53 `record/alias`
+- **Module**: AWS SSM `maintenance-window` (migrating from Namely `tf2` repo)
+
+## v0.2.1 (2023-04-04)
+
+:wrench: **Fixed**:
+
+- AWS `eks/node-group` module: do not update launch template when upgrading control plane version
+
+## v0.2.0 (2023-03-31)
+
+:rocket: **Added**:
+
+- AWS `eks` module (Namely compatible)
+- AWS `eks/node-group` module (Namely compatible)
+
+## v0.1.2 (2023-03-30)
+
+:wrench: **Fixed**:
+
+- `peering-requester` module: Add the "Side" label equals to "Accepter" if the peering connection is from the same Owner ID and Same region. Prevent flickering of the label. Ugly workaround, but it works.
+
+## v0.1.1 (2023-03-30)
+
+:wrench: **Fixed**:
+
+- `peering-requester` module: Do not add the "Side" label if the peering connection is from the same Owner ID and Same region. Prevent flickering of the label.
+
+## v0.1.0 (2023-03-29)
+
+:rocket: **Added**:
+
+- AWS `peering-accepter` module
+- AWS `peering-requester` module
