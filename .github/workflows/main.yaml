@@ -17,20 +17,13 @@ jobs:
         id: version
         run: |
           cat VERSION
-        continue-on-error: true
 
       - name: Get PR commit messages
         id: pr_commit_messages
         run: |
-          BASE_BRANCH=$(git merge-base HEAD $(git rev-parse --abbrev-ref HEAD))
           COMMIT_MESSAGES=$( git diff main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
-          
-          echo "Commit messages:"
-          echo "$COMMIT_MESSAGES"
-          
-          echo "TAG_NAME=$(cat VERSION)" >> $GITHUB_ENV
+          echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
-        continue-on-error: true
       
 
       - name: Create Git Tag
@@ -38,7 +31,6 @@ jobs:
         run: |
           git tag $TAG_NAME
           git push origin $TAG_NAME
-        continue-on-error: true
 
       - name: Create GitHub Release
         id: create_github_release
@@ -46,4 +38,3 @@ jobs:
           gh release create $TAG_NAME -F - <<<"$COMMIT_MESSAGES"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
