@@ -13,21 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Read VERSION file
-        id: version
-        run: |
-          cat VERSION
-
       - name: Get PR commit messages
         id: pr_commit_messages
         run: |
           echo "Uai"
-          git diff main -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG
           git diff origin/main -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG
           COMMIT_MESSAGES=$(git diff $(git rev-parse HEAD) -- ./CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG)
           echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
       
+
+      - name: Read VERSION file
+        id: version
+        run: |
+          cat VERSION
 
       - name: Create Git Tag
         id: create_tag
