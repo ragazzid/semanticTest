@@ -3,7 +3,7 @@ name: Create Release on PR Merge
 on:
   push:
     branches:
-      - main
+      - feat/boraquebora
 
 jobs:
   create_release:
@@ -21,6 +21,8 @@ jobs:
       - name: Get PR commit messages
         id: pr_commit_messages
         run: |
+          echo "UAI"
+          git diff origin/main CHANGELOG
           COMMIT_MESSAGES=$( git diff origin/main CHANGELOG | grep '^+' | sed 's/^+//'  | grep -v CHANGELOG )
           echo $COMMIT_MESSAGES
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
